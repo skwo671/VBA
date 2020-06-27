@@ -1,0 +1,27 @@
+Sub MarkSix()
+    Dim Result(49) As Byte
+    Dim IsDup As Boolean
+    Const NoOfBall As Byte = 49
+    
+    For i = 0 To 6
+        Do
+            Draw = Int(Rnd() * 49) + 1
+        Loop While Not IsError(Application.Match(Draw, Result, 0))
+        Result(i) = Draw
+    Next
+    
+    ' Place the result
+    Application.Goto reference:="Resulthead"
+    
+    If ActiveCell.Offset(1, 0).Value = "" Then
+        ActiveCell.Offset(1, 0).Select
+    Else
+        ActiveCell.End(xlDown).Offset(1, 0).Select
+    End If
+    
+    For i = 0 To 6
+        ActiveCell.Offset(0, i).Value = Result(i + 43)
+    Next
+
+
+End Sub
